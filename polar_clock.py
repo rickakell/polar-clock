@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 class Clock:
     def __init__(self, aRadius, aResolution):
@@ -36,12 +37,24 @@ class Clock:
         plt.axis('off')
         plt.show()
 
+def time_to_angles(time):
+    full_circle_in_radians = 2 * np.pi
+    # The origin points to 3 o'clock, but time starts at 12 o'clock
+    origin_to_12_offset = full_circle_in_radians / 4
+    # How much time passes in a full circle for hours/minutes/seconds
+    time_in_revolution = 60
+    # We return the inverse because theta measures counter clock-wise
+    return - (time * (full_circle_in_radians / time_in_revolution) - origin_to_12_offset)
+
 def draw_simple_clock(radius, resolution):
     simple_clock = Clock(radius, resolution)
+
+    current_time = datetime.now()
     # Plot the minute hand
-    simple_clock.plot_line(5, 0, radius * .75)
+    simple_clock.plot_line(time_to_angles(current_time.minute), 0, radius * .75)
     # Plot the hour hand
-    simple_clock.plot_line(2, 0, radius * .5)
+    simple_clock.plot_line(time_to_angles(current_time.hour), 0, radius * .5)
+
     simple_clock.plot_tickmarks(radius / 10, 12)
 
     simple_clock.render()
