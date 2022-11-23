@@ -17,13 +17,20 @@ class Clock:
         for theta in thetas:
             plt.polar(theta, self.radius, 'g.')
 
-    def plot_line(self, angle, length, resolution):
-        # Array of radii from 0 to length of the line
-        points = np.arange(0, length, resolution)
+    def plot_line(self, angle, start, end, resolution):
+        # Array of radii from the start to the end of the line
+        points = np.arange(start, end, resolution)
 
         # Plotting the line
         for point in points:
             plt.polar(angle, point, 'g.')
+
+    def plot_tickmarks(self, tick_length, number_of_ticks):
+        radian_full_circle = 2 * np.pi
+        thetas = np.arange(0, radian_full_circle, radian_full_circle / number_of_ticks)
+
+        for theta in thetas:
+            self.plot_line(theta, self.radius - tick_length, self.radius, self.resolution)
 
     def render(self):
         plt.axis('off')
@@ -32,10 +39,13 @@ class Clock:
 def draw_simple_clock(radius, resolution):
     simple_clock = Clock(radius, resolution)
     # Plot the minute hand
-    simple_clock.plot_line(5, radius * .75, resolution)
+    simple_clock.plot_line(5, 0, radius * .75, resolution)
     # Plot the hour hand
-    simple_clock.plot_line(2, radius * .5, resolution)
+    simple_clock.plot_line(2, 0, radius * .5, resolution)
+    simple_clock.plot_tickmarks(radius / 10, 12)
+
     simple_clock.render()
+
 
 def main():
     RESOLUTION = .01
