@@ -30,7 +30,7 @@ class Clock:
         thetas = np.arange(0, radian_full_circle, radian_full_circle / number_of_ticks)
 
         for theta in thetas:
-            self.plot_line(theta, self.radius - tick_length, self.radius, self.resolution)
+            self.plot_line(theta, self.radius - tick_length, self.radius)
 
     def render(self):
         plt.axis('off')
