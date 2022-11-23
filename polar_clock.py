@@ -1,42 +1,46 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-def plot_circle(radius, resolution):
-    # Array of theta values from 0 to 2pi
-    thetas = np.arange(0, (2 * np.pi), resolution)
+class Clock:
+    def __init__(self, aRadius, aResolution):
+        self.radius = aRadius
+        self.resolution = aResolution
 
-    # Plotting the circle
-    for theta in thetas:
-        plt.polar(theta, radius, 'g.')
+        plt.axes(projection = 'polar')
+        self.plot_outline()
 
-def plot_line(angle, length, resolution):
-    # Array of radii from 0 to length of the line
-    points = np.arange(0, length, resolution)
+    def plot_outline(self):
+        # Array of theta values from 0 to 2pi
+        thetas = np.arange(0, (2 * np.pi), self.resolution)
 
-    # Plotting the line
-    for point in points:
-        plt.polar(angle, point, 'g.')
+        # Plotting the circle
+        for theta in thetas:
+            plt.polar(theta, self.radius, 'g.')
 
-def draw_simple_clock(radius):
-    # Plot the clock
-    plot_circle(radius)
+    def plot_line(self, angle, length, resolution):
+        # Array of radii from 0 to length of the line
+        points = np.arange(0, length, resolution)
+
+        # Plotting the line
+        for point in points:
+            plt.polar(angle, point, 'g.')
+
+    def render(self):
+        plt.axis('off')
+        plt.show()
+
+def draw_simple_clock(radius, resolution):
+    simple_clock = Clock(radius, resolution)
     # Plot the minute hand
-    plot_line(5, radius * .75)
+    simple_clock.plot_line(5, radius * .75, resolution)
     # Plot the hour hand
-    plot_line(2, radius * .5)
-
-def render_plot():
-    plt.axis('off')
-    plt.show()
+    simple_clock.plot_line(2, radius * .5, resolution)
+    simple_clock.render()
 
 def main():
-    # How close should we plot points?
-    RESOLUTION = 0.01
-    # Half the name of this project
-    plt.axes(projection = 'polar')
-
-    draw_simple_clock(5, RESOLUTION)
-    render_plot()
+    RESOLUTION = .01
+    CLOCK_RADIUS = 5
+    draw_simple_clock(CLOCK_RADIUS, RESOLUTION)
 
 if __name__ == "__main__":
     main()
