@@ -26,7 +26,7 @@ class Clock:
         for point in points:
             plt.polar(angle, point, 'g.')
 
-    def plot_tickmarks(self, tick_length, number_of_ticks):
+    def plot_tick_marks(self, tick_length, number_of_ticks):
         radian_full_circle = 2 * np.pi
         thetas = np.arange(0, radian_full_circle, radian_full_circle / number_of_ticks)
 
@@ -55,7 +55,7 @@ def draw_simple_clock(radius, resolution):
     # Plot the hour hand
     simple_clock.plot_line(time_to_angles(current_time.hour), 0, radius * .5)
 
-    simple_clock.plot_tickmarks(radius / 10, 12)
+    simple_clock.plot_tick_marks(radius / 10, 12)
 
     simple_clock.render()
 
