@@ -25,7 +25,7 @@ def draw_simple_clock(radius):
     # Plot the hour hand
     plot_line(2, radius * .5)
 
-    # Display the clock plot
+def render_plot():
     plt.axis('off')
     plt.show()
 
@@ -36,7 +36,7 @@ def main():
     plt.axes(projection = 'polar')
 
     draw_simple_clock(5, RESOLUTION)
-
+    render_plot()
 
 if __name__ == "__main__":
     main()
